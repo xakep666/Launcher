@@ -7,8 +7,9 @@
       <sourceFolder url="file://$MODULE_DIR$/source-testing" isTestSource="true" packagePrefix="launcher" />
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
-    <orderEntry type="library" exported="" name="jansi-1.11" level="project" />
-    <orderEntry type="library" exported="" name="minimal-json-0.9.4" level="project" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="org.fusesource.jansi:jansi:1.11" level="application" />
+    <orderEntry type="library" name="com.eclipsesource.minimal-json:minimal-json:0.9.4" level="project" />
+    <orderEntry type="library" name="jline:jline:2.13" level="project" />
   </component>
 </module>

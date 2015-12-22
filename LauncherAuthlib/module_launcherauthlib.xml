@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_launcherauthlib" default="compile.module.launcherauthlib">
+  <dirname property="module.launcherauthlib.basedir" file="${ant.file.module_launcherauthlib}"/>
+  
+  <property name="module.jdk.home.launcherauthlib" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.launcherauthlib" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.launcherauthlib" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.launcherauthlib" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="launcherauthlib.output.dir" value="${module.launcherauthlib.basedir}/../build/production/LauncherAuthlib"/>
+  <property name="launcherauthlib.testoutput.dir" value="${module.launcherauthlib.basedir}/../build/test/LauncherAuthlib"/>
+  
+  <path id="launcherauthlib.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="launcherauthlib.module.production.classpath">
+    <path refid="${module.jdk.classpath.launcherauthlib}"/>
+    <pathelement location="${basedir}/compat/authlib/authlib-clean.jar"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.com.google.guava:guava:18.0.classpath"/>
+  </path>
+  
+  <path id="launcherauthlib.runtime.production.module.classpath">
+    <pathelement location="${basedir}/compat/authlib/authlib-clean.jar"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+    <pathelement location="${launcherauthlib.output.dir}"/>
+    <path refid="library.com.google.guava:guava:18.0.classpath"/>
+  </path>
+  
+  <path id="launcherauthlib.module.classpath">
+    <path refid="${module.jdk.classpath.launcherauthlib}"/>
+    <pathelement location="${basedir}/compat/authlib/authlib-clean.jar"/>
+    <pathelement location="${launcher.testoutput.dir}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <pathelement location="${launcherauthlib.output.dir}"/>
+    <path refid="library.com.google.guava:guava:18.0.classpath"/>
+  </path>
+  
+  <path id="launcherauthlib.runtime.module.classpath">
+    <pathelement location="${basedir}/compat/authlib/authlib-clean.jar"/>
+    <pathelement location="${launcher.testoutput.dir}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+    <pathelement location="${launcherauthlib.testoutput.dir}"/>
+    <pathelement location="${launcherauthlib.output.dir}"/>
+    <path refid="library.com.google.guava:guava:18.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.launcherauthlib">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.launcherauthlib">
+    <patternset refid="excluded.from.module.launcherauthlib"/>
+  </patternset>
+  
+  <path id="launcherauthlib.module.sourcepath">
+    <dirset dir="${module.launcherauthlib.basedir}">
+      <include name="source"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.launcherauthlib" depends="compile.module.launcherauthlib.production,compile.module.launcherauthlib.tests" description="Compile module LauncherAuthlib"/>
+  
+  <target name="compile.module.launcherauthlib.production" depends="compile.module.launcher" description="Compile module LauncherAuthlib; production classes">
+    <mkdir dir="${launcherauthlib.output.dir}"/>
+    <javac destdir="${launcherauthlib.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.launcherauthlib}/javac">
+      <compilerarg line="${compiler.args.launcherauthlib}"/>
+      <bootclasspath refid="launcherauthlib.module.bootclasspath"/>
+      <classpath refid="launcherauthlib.module.production.classpath"/>
+      <src refid="launcherauthlib.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.launcherauthlib"/>
+    </javac>
+    
+    <copy todir="${launcherauthlib.output.dir}/com/mojang/authlib">
+      <fileset dir="${module.launcherauthlib.basedir}/source">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.launcherauthlib.tests" depends="compile.module.launcherauthlib.production" description="compile module LauncherAuthlib; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.launcherauthlib" description="cleanup module">
+    <delete dir="${launcherauthlib.output.dir}"/>
+    <delete dir="${launcherauthlib.testoutput.dir}"/>
+  </target>
+</project>

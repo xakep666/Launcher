@@ -9,19 +9,15 @@
       <excludeFolder url="file://$MODULE_DIR$/runtime" />
     </content>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="library" name="jline-2.12.1" level="project" />
-    <orderEntry type="library" name="mysql-5.1.36" level="project" />
-    <orderEntry type="library" name="hikaricp-2.4.0" level="project" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../build/libraries/launch4j.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module" module-name="Launcher" exported="" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="com.google.collections:google-collections:1.0" level="application" />
+    <orderEntry type="library" name="jline:jline:2.13" level="application" />
+    <orderEntry type="library" name="com.eclipsesource.minimal-json:minimal-json:0.9.4" level="project" />
+    <orderEntry type="library" name="com.google.collections:google-collections:0.9" level="project" />
+    <orderEntry type="library" name="com.zaxxer:HikariCP:2.4.3" level="project" />
+    <orderEntry type="library" name="mysql:mysql-connector-java:5.1.38" level="project" />
+    <orderEntry type="library" name="net.sf.launch4j:launch4j:3.8.0" level="project" />
+    <orderEntry type="library" name="org.fusesource.jansi:jansi:1.11" level="project" />
   </component>
 </module>

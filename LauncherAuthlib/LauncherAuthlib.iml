@@ -6,15 +6,6 @@
       <sourceFolder url="file://$MODULE_DIR$/source" isTestSource="false" packagePrefix="com.mojang.authlib" />
     </content>
     <orderEntry type="inheritedJdk" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../build/libraries/guava-16.0.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -26,5 +17,6 @@
     </orderEntry>
     <orderEntry type="module" module-name="Launcher" exported="" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="com.google.guava:guava:18.0" level="project" />
   </component>
 </module>

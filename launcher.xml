@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mylauncher" default="all">
+  
+  
+  <property file="launcher.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="700m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/*.rbc/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/vssver.scc/**"/>
+    <exclude name="**/vssver2.scc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.war"/>
+    <include name="*.swc"/>
+    <include name="*.apk"/>
+    <include name="*.zip"/>
+    <include name="*.ear"/>
+    <include name="*.egg"/>
+    <include name="*.ane"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <exclude name="**/?*.java"/>
+    <exclude name="**/?*.form"/>
+    <exclude name="**/?*.class"/>
+    <exclude name="**/?*.groovy"/>
+    <exclude name="**/?*.scala"/>
+    <exclude name="**/?*.flex"/>
+    <exclude name="**/?*.kt"/>
+    <exclude name="**/?*.clj"/>
+    <exclude name="**/?*.aj"/>
+  </patternset>
+  
+  <!-- JDK definitions -->
+  
+  <property name="jdk.bin.1.8" value="${jdk.home.1.8}/bin"/>
+  <path id="jdk.classpath.1.8">
+    <fileset dir="${jdk.home.1.8}">
+      <include name="jre/lib/charsets.jar"/>
+      <include name="jre/lib/ext/cldrdata.jar"/>
+      <include name="jre/lib/ext/dnsns.jar"/>
+      <include name="jre/lib/ext/icedtea-sound.jar"/>
+      <include name="jre/lib/ext/jaccess.jar"/>
+      <include name="jre/lib/ext/java-atk-wrapper.jar"/>
+      <include name="jre/lib/ext/jfxrt.jar"/>
+      <include name="jre/lib/ext/localedata.jar"/>
+      <include name="jre/lib/ext/nashorn.jar"/>
+      <include name="jre/lib/ext/sunec.jar"/>
+      <include name="jre/lib/ext/sunjce_provider.jar"/>
+      <include name="jre/lib/ext/sunpkcs11.jar"/>
+      <include name="jre/lib/ext/zipfs.jar"/>
+      <include name="jre/lib/jce.jar"/>
+      <include name="jre/lib/jfxswt.jar"/>
+      <include name="jre/lib/jsse.jar"/>
+      <include name="jre/lib/management-agent.jar"/>
+      <include name="jre/lib/resources.jar"/>
+      <include name="jre/lib/rt.jar"/>
+    </fileset>
+  </path>
+  
+  <property name="project.jdk.home" value="${jdk.home.1.8}"/>
+  <property name="project.jdk.bin" value="${jdk.bin.1.8}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath.1.8"/>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath">
+    <pathelement location="${basedir}/lib/minimal-json-0.9.4.jar"/>
+  </path>
+  
+  <path id="library.com.google.collections:google-collections:0.9.classpath">
+    <pathelement location="${basedir}/lib/google-collections-0.9.jar"/>
+  </path>
+  
+  <path id="library.com.google.guava:guava:18.0.classpath">
+    <pathelement location="${basedir}/lib/guava-18.0.jar"/>
+  </path>
+  
+  <path id="library.com.zaxxer:hikaricp:2.4.3.classpath">
+    <pathelement location="${basedir}/lib/HikariCP-2.4.3.jar"/>
+    <pathelement location="${basedir}/lib/slf4j-api-1.7.12.jar"/>
+  </path>
+  
+  <path id="library.jline:jline:2.13.classpath">
+    <pathelement location="${basedir}/lib/jansi-1.11.jar"/>
+    <pathelement location="${basedir}/lib/jline-2.13.jar"/>
+  </path>
+  
+  <path id="library.mysql:mysql-connector-java:5.1.38.classpath">
+    <pathelement location="${basedir}/lib/mysql-connector-java-5.1.38.jar"/>
+  </path>
+  
+  <path id="library.net.sf.launch4j:launch4j:3.8.0.classpath">
+    <pathelement location="${basedir}/lib/abeille-3.0.jar"/>
+    <pathelement location="${basedir}/lib/ant-1.8.2.jar"/>
+    <pathelement location="${basedir}/lib/ant-launcher-1.8.2.jar"/>
+    <pathelement location="${basedir}/lib/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${basedir}/lib/commons-logging-1.2.jar"/>
+    <pathelement location="${basedir}/lib/forms-1.2.1.jar"/>
+    <pathelement location="${basedir}/lib/foxtrot-2.0.jar"/>
+    <pathelement location="${basedir}/lib/jgoodies-common-1.7.0.jar"/>
+    <pathelement location="${basedir}/lib/jgoodies-looks-2.5.2.jar"/>
+    <pathelement location="${basedir}/lib/launch4j-3.8.0.jar"/>
+    <pathelement location="${basedir}/lib/looks-2.2.2.jar"/>
+    <pathelement location="${basedir}/lib/xmlpull-1.1.3.1.jar"/>
+    <pathelement location="${basedir}/lib/xpp3_min-1.1.4c.jar"/>
+    <pathelement location="${basedir}/lib/xstream-1.4.8.jar"/>
+  </path>
+  
+  <path id="library.org.fusesource.jansi:jansi:1.11.classpath">
+    <pathelement location="${basedir}/lib/jansi-1.11.jar"/>
+  </path>
+  
+  
+  <!-- Global Libraries -->
+  
+  <path id="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/eclipsesource/minimal-json/minimal-json/0.9.4/minimal-json-0.9.4.jar"/>
+  </path>
+  
+  <path id="library.com.google.collections:google-collections:1.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/google/collections/google-collections/1.0/google-collections-1.0.jar"/>
+  </path>
+  
+  <path id="library.com.zaxxer:hikaricp:2.4.3.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/zaxxer/HikariCP/2.4.3/HikariCP-2.4.3.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar"/>
+  </path>
+  
+  <path id="library.jline:jline:2.13.classpath">
+    <pathelement location="${path.variable.maven_repository}/jline/jline/2.13/jline-2.13.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/fusesource/jansi/jansi/1.11/jansi-1.11.jar"/>
+  </path>
+  
+  <path id="library.mysql:mysql-connector-java:5.1.38.classpath">
+    <pathelement location="${path.variable.maven_repository}/mysql/mysql-connector-java/5.1.38/mysql-connector-java-5.1.38.jar"/>
+  </path>
+  
+  <path id="library.net.sf.launch4j:launch4j:3.8.0.classpath">
+    <pathelement location="${path.variable.maven_repository}/com/jgoodies/forms/1.2.1/forms-1.2.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jgoodies/jgoodies-common/1.7.0/jgoodies-common-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jgoodies/jgoodies-looks/2.5.2/jgoodies-looks-2.5.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/jgoodies/looks/2.2.2/looks-2.2.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/com/thoughtworks/xstream/xstream/1.4.8/xstream-1.4.8.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/commons-logging/commons-logging/1.2/commons-logging-1.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/foxtrot/foxtrot/2.0/foxtrot-2.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/java/abeille/abeille/3.0/abeille-3.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/net/sf/launch4j/launch4j/3.8.0/launch4j-3.8.0.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/ant/ant-launcher/1.8.2/ant-launcher-1.8.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/org/apache/ant/ant/1.8.2/ant-1.8.2.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar"/>
+    <pathelement location="${path.variable.maven_repository}/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar"/>
+  </path>
+  
+  <path id="library.org.fusesource.jansi:jansi:1.11.classpath">
+    <pathelement location="${path.variable.maven_repository}/org/fusesource/jansi/jansi/1.11/jansi-1.11.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  <import file="${basedir}/Launcher/module_launcher.xml"/>
+  
+  <import file="${basedir}/LauncherAuthlib/module_launcherauthlib.xml"/>
+  
+  <import file="${basedir}/LaunchServer/module_launchserver.xml"/>
+  
+  <import file="${basedir}/Launcher/runtime/module_runtime.xml"/>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.launcher, clean.module.launcherauthlib, clean.module.launchserver, clean.module.runtime" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.launcher, compile.module.launcherauthlib, compile.module.launchserver, compile.module.runtime" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.launcher" value="${basedir}"/>
+    <property name="artifact.output.launcherauthlib" value="${basedir}"/>
+    <property name="artifact.output.launchserver" value="${basedir}"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.Launcher.jar" value="${artifacts.temp.dir}/Launcher.jar"/>
+    <property name="temp.jar.path.LauncherAuthlib.jar" value="${artifacts.temp.dir}/LauncherAuthlib.jar"/>
+    <property name="temp.jar.path.LaunchServer.jar" value="${artifacts.temp.dir}/LaunchServer.jar"/>
+    <property name="temp.jar.path.runtime.zip" value="${artifacts.temp.dir}/runtime.zip"/>
+  </target>
+  
+  <target name="artifact.launcher" depends="init.artifacts, compile.module.launcher, compile.module.runtime" description="Build &#39;Launcher&#39; artifact">
+    <property name="artifact.temp.output.launcher" value="${artifacts.temp.dir}/Launcher"/>
+    <mkdir dir="${artifact.temp.output.launcher}"/>
+    <jar manifest="${basedir}/Launcher/MANIFEST.MF" destfile="${temp.jar.path.Launcher.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/Launcher/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${launcher.output.dir}"/>
+      <zipfileset dir="${runtime.output.dir}"/>
+      <zipfileset src="${basedir}/lib/minimal-json-0.9.4.jar"/>
+      <zipfileset src="${basedir}/lib/jline-2.13.jar"/>
+      <zipfileset src="${basedir}/lib/jansi-1.11.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/fusesource/jansi/jansi/1.11/jansi-1.11.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.Launcher.jar}" tofile="${artifact.temp.output.launcher}/Launcher.jar"/>
+  </target>
+  
+  <target name="artifact.launcherauthlib" depends="init.artifacts, compile.module.launcherauthlib" description="Build &#39;LauncherAuthlib&#39; artifact">
+    <property name="artifact.temp.output.launcherauthlib" value="${artifacts.temp.dir}/LauncherAuthlib"/>
+    <mkdir dir="${artifact.temp.output.launcherauthlib}"/>
+    <jar manifest="${basedir}/LauncherAuthlib/MANIFEST.MF" destfile="${temp.jar.path.LauncherAuthlib.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/LauncherAuthlib/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${launcherauthlib.output.dir}"/>
+      <zipfileset src="${basedir}/compat/authlib/authlib-clean.jar"/>
+      <zipfileset src="${basedir}/lib/guava-18.0.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.LauncherAuthlib.jar}" tofile="${artifact.temp.output.launcherauthlib}/LauncherAuthlib.jar"/>
+  </target>
+  
+  <target name="artifact.launchserver" depends="init.artifacts, compile.module.launcher, compile.module.launchserver" description="Build &#39;LaunchServer&#39; artifact">
+    <property name="artifact.temp.output.launchserver" value="${artifacts.temp.dir}/LaunchServer"/>
+    <mkdir dir="${artifact.temp.output.launchserver}"/>
+    <zip destfile="${temp.jar.path.runtime.zip}">
+      <zipfileset dir="${basedir}/Launcher/runtime"/>
+    </zip>
+    <jar manifest="${basedir}/LaunchServer/MANIFEST.MF" destfile="${temp.jar.path.LaunchServer.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/LaunchServer/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${launcher.output.dir}"/>
+      <zipfileset dir="${launchserver.output.dir}"/>
+      <zipfileset file="${temp.jar.path.runtime.zip}" prefix="launchserver/defaults"/>
+      <zipfileset src="${basedir}/lib/minimal-json-0.9.4.jar"/>
+      <zipfileset src="${basedir}/lib/google-collections-0.9.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/com/google/collections/google-collections/1.0/google-collections-1.0.jar"/>
+      <zipfileset src="${basedir}/lib/HikariCP-2.4.3.jar"/>
+      <zipfileset src="${basedir}/lib/slf4j-api-1.7.12.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/jline/jline/2.13/jline-2.13.jar"/>
+      <zipfileset src="${path.variable.maven_repository}/org/fusesource/jansi/jansi/1.11/jansi-1.11.jar"/>
+      <zipfileset src="${basedir}/lib/mysql-connector-java-5.1.38.jar"/>
+      <zipfileset src="${basedir}/lib/launch4j-3.8.0.jar"/>
+      <zipfileset src="${basedir}/lib/commons-beanutils-1.7.0.jar"/>
+      <zipfileset src="${basedir}/lib/commons-logging-1.2.jar"/>
+      <zipfileset src="${basedir}/lib/abeille-3.0.jar"/>
+      <zipfileset src="${basedir}/lib/jgoodies-looks-2.5.2.jar"/>
+      <zipfileset src="${basedir}/lib/jgoodies-common-1.7.0.jar"/>
+      <zipfileset src="${basedir}/lib/foxtrot-2.0.jar"/>
+      <zipfileset src="${basedir}/lib/forms-1.2.1.jar"/>
+      <zipfileset src="${basedir}/lib/looks-2.2.2.jar"/>
+      <zipfileset src="${basedir}/lib/xstream-1.4.8.jar"/>
+      <zipfileset src="${basedir}/lib/xmlpull-1.1.3.1.jar"/>
+      <zipfileset src="${basedir}/lib/xpp3_min-1.1.4c.jar"/>
+      <zipfileset src="${basedir}/lib/ant-1.8.2.jar"/>
+      <zipfileset src="${basedir}/lib/ant-launcher-1.8.2.jar"/>
+      <zipfileset src="${basedir}/lib/jansi-1.11.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.LaunchServer.jar}" tofile="${artifact.temp.output.launchserver}/LaunchServer.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.launcher, artifact.launcherauthlib, artifact.launchserver" description="Build all artifacts">
+    <mkdir dir="${artifact.output.launcher}"/>
+    <copy todir="${artifact.output.launcher}">
+      <fileset dir="${artifact.temp.output.launcher}"/>
+    </copy>
+    <mkdir dir="${artifact.output.launcherauthlib}"/>
+    <copy todir="${artifact.output.launcherauthlib}">
+      <fileset dir="${artifact.temp.output.launcherauthlib}"/>
+    </copy>
+    <mkdir dir="${artifact.output.launchserver}"/>
+    <copy todir="${artifact.output.launchserver}">
+      <fileset dir="${artifact.temp.output.launchserver}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>

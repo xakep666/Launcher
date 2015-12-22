@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_launchserver" default="compile.module.launchserver">
+  <dirname property="module.launchserver.basedir" file="${ant.file.module_launchserver}"/>
+  
+  <property name="module.jdk.home.launchserver" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.launchserver" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.launchserver" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.launchserver" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="launchserver.output.dir" value="${module.launchserver.basedir}/../build/production/LaunchServer"/>
+  <property name="launchserver.testoutput.dir" value="${module.launchserver.basedir}/../build/test/LaunchServer"/>
+  
+  <path id="launchserver.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="launchserver.module.production.classpath">
+    <path refid="${module.jdk.classpath.launchserver}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.com.google.collections:google-collections:1.0.classpath"/>
+    <path refid="library.com.zaxxer:hikaricp:2.4.3.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.38.classpath"/>
+    <path refid="library.net.sf.launch4j:launch4j:3.8.0.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+  </path>
+  
+  <path id="launchserver.runtime.production.module.classpath">
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <pathelement location="${launchserver.output.dir}"/>
+    <path refid="library.com.google.collections:google-collections:1.0.classpath"/>
+    <path refid="library.com.zaxxer:hikaricp:2.4.3.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.38.classpath"/>
+    <path refid="library.net.sf.launch4j:launch4j:3.8.0.classpath"/>
+  </path>
+  
+  <path id="launchserver.module.classpath">
+    <path refid="${module.jdk.classpath.launchserver}"/>
+    <pathelement location="${launcher.testoutput.dir}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <pathelement location="${launchserver.output.dir}"/>
+    <path refid="library.com.google.collections:google-collections:1.0.classpath"/>
+    <path refid="library.com.zaxxer:hikaricp:2.4.3.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.38.classpath"/>
+    <path refid="library.net.sf.launch4j:launch4j:3.8.0.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+  </path>
+  
+  <path id="launchserver.runtime.module.classpath">
+    <pathelement location="${launcher.testoutput.dir}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <pathelement location="${launchserver.testoutput.dir}"/>
+    <pathelement location="${launchserver.output.dir}"/>
+    <path refid="library.com.google.collections:google-collections:1.0.classpath"/>
+    <path refid="library.com.zaxxer:hikaricp:2.4.3.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+    <path refid="library.mysql:mysql-connector-java:5.1.38.classpath"/>
+    <path refid="library.net.sf.launch4j:launch4j:3.8.0.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.launchserver">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.launchserver">
+    <patternset refid="excluded.from.module.launchserver"/>
+  </patternset>
+  
+  <path id="launchserver.module.sourcepath">
+    <dirset dir="${module.launchserver.basedir}">
+      <include name="resources"/>
+      <include name="source"/>
+    </dirset>
+  </path>
+  
+  <path id="launchserver.module.test.sourcepath">
+    <dirset dir="${module.launchserver.basedir}">
+      <include name="source-testing"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.launchserver" depends="compile.module.launchserver.production,compile.module.launchserver.tests" description="Compile module LaunchServer"/>
+  
+  <target name="compile.module.launchserver.production" depends="compile.module.launcher" description="Compile module LaunchServer; production classes">
+    <mkdir dir="${launchserver.output.dir}"/>
+    <javac destdir="${launchserver.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.launchserver}/javac">
+      <compilerarg line="${compiler.args.launchserver}"/>
+      <bootclasspath refid="launchserver.module.bootclasspath"/>
+      <classpath refid="launchserver.module.production.classpath"/>
+      <src refid="launchserver.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.launchserver"/>
+    </javac>
+    
+    <copy todir="${launchserver.output.dir}">
+      <fileset dir="${module.launchserver.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+    <copy todir="${launchserver.output.dir}/launchserver">
+      <fileset dir="${module.launchserver.basedir}/source">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.launchserver.tests" depends="compile.module.launchserver.production" description="compile module LaunchServer; test classes" unless="skip.tests">
+    <mkdir dir="${launchserver.testoutput.dir}"/>
+    <javac destdir="${launchserver.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.launchserver}/javac">
+      <compilerarg line="${compiler.args.launchserver}"/>
+      <bootclasspath refid="launchserver.module.bootclasspath"/>
+      <classpath refid="launchserver.module.classpath"/>
+      <src refid="launchserver.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.launchserver"/>
+    </javac>
+    
+    <copy todir="${launchserver.testoutput.dir}/launchserver">
+      <fileset dir="${module.launchserver.basedir}/source-testing">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.launchserver" description="cleanup module">
+    <delete dir="${launchserver.output.dir}"/>
+    <delete dir="${launchserver.testoutput.dir}"/>
+  </target>
+</project>

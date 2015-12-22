@@ -1,5 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 set -e
+
+KEYSTORE=build/keystore.jks
+FPFILE=certFingerprint
+ALIAS=client
+
+[ ! -e $KEYSTORE ] && echo "You need to generate keystore \"$KEYSTORE\" and insert key and cert for signing to it with alias \"$ALIAS\"" && exit
+[ ! -e $FPFILE ] && echo "You need to insert your certificate SHA256 fingerprint without delimiters into \"$FPFILE\"" && exit
+#change digest to yours
+sed -ri "s/\"[0-9a-fA-F]{64}\";/\"$(cat $FPFILE)\";/" \
+	Launcher/source/helper/SecurityHelper.java
+	
+#run compilation
+ant -f launcher.xml
 
 function pack {
     local input=$1
@@ -10,7 +23,7 @@ function pack {
     echo "Packing $input binary"
     zip -9 "$input" "buildnumber" $@
     pack200 -E9 -Htrue -mlatest -Uerror -r "$input"
-    jarsigner -keystore "build/sashok724.jks" -storepass PSP1004 -sigfile LAUNCHER "$input" sashok724 > /dev/null
+    jarsigner -keystore $KEYSTORE -sigfile LAUNCHER "$input" $ALIAS
     [ ! -z "$output" ] && pack200 -E9 -Htrue -mlatest -Uerror "$output" "$input"
 
     # Return

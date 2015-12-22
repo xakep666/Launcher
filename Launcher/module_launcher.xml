@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_launcher" default="compile.module.launcher">
+  <dirname property="module.launcher.basedir" file="${ant.file.module_launcher}"/>
+  
+  <property name="module.jdk.home.launcher" value="${jdk.home.1.8}"/>
+  <property name="module.jdk.bin.launcher" value="${jdk.bin.1.8}"/>
+  <property name="module.jdk.classpath.launcher" value="jdk.classpath.1.8"/>
+  
+  <property name="compiler.args.launcher" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="launcher.output.dir" value="${module.launcher.basedir}/../build/production/Launcher"/>
+  <property name="launcher.testoutput.dir" value="${module.launcher.basedir}/../build/test/Launcher"/>
+  
+  <path id="launcher.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="launcher.module.production.classpath">
+    <path refid="${module.jdk.classpath.launcher}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+  </path>
+  
+  <path id="launcher.runtime.production.module.classpath">
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+  </path>
+  
+  <path id="launcher.module.classpath">
+    <path refid="${module.jdk.classpath.launcher}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+  </path>
+  
+  <path id="launcher.runtime.module.classpath">
+    <pathelement location="${launcher.testoutput.dir}"/>
+    <pathelement location="${launcher.output.dir}"/>
+    <path refid="library.org.fusesource.jansi:jansi:1.11.classpath"/>
+    <path refid="library.com.eclipsesource.minimal-json:minimal-json:0.9.4.classpath"/>
+    <path refid="library.jline:jline:2.13.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.launcher">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.launcher">
+    <patternset refid="excluded.from.module.launcher"/>
+  </patternset>
+  
+  <path id="launcher.module.sourcepath">
+    <dirset dir="${module.launcher.basedir}">
+      <include name="source"/>
+    </dirset>
+  </path>
+  
+  <path id="launcher.module.test.sourcepath">
+    <dirset dir="${module.launcher.basedir}">
+      <include name="source-testing"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.launcher" depends="compile.module.launcher.production,compile.module.launcher.tests" description="Compile module Launcher"/>
+  
+  <target name="compile.module.launcher.production" description="Compile module Launcher; production classes">
+    <mkdir dir="${launcher.output.dir}"/>
+    <javac destdir="${launcher.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.launcher}/javac">
+      <compilerarg line="${compiler.args.launcher}"/>
+      <bootclasspath refid="launcher.module.bootclasspath"/>
+      <classpath refid="launcher.module.production.classpath"/>
+      <src refid="launcher.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.launcher"/>
+    </javac>
+    
+    <copy todir="${launcher.output.dir}/launcher">
+      <fileset dir="${module.launcher.basedir}/source">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.launcher.tests" depends="compile.module.launcher.production" description="compile module Launcher; test classes" unless="skip.tests">
+    <mkdir dir="${launcher.testoutput.dir}"/>
+    <javac destdir="${launcher.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.launcher}/javac">
+      <compilerarg line="${compiler.args.launcher}"/>
+      <bootclasspath refid="launcher.module.bootclasspath"/>
+      <classpath refid="launcher.module.classpath"/>
+      <src refid="launcher.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.launcher"/>
+    </javac>
+    
+    <copy todir="${launcher.testoutput.dir}/launcher">
+      <fileset dir="${module.launcher.basedir}/source-testing">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.launcher" description="cleanup module">
+    <delete dir="${launcher.output.dir}"/>
+    <delete dir="${launcher.testoutput.dir}"/>
+  </target>
+</project>
